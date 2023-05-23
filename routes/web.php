@@ -29,16 +29,22 @@ Route::get('/', function () {
 
  Route::get( 'impresion2' , [SetArticuloController::class, 'impresion2'])->name('setarticulo.impresion2');
 
+ Route::get( 'impresion3' , [SetArticuloController::class, 'impresion3'])->name('gabinete.impresion3');
 
+ Route::get( 'imprimirgabinete' , [SetArticuloController::class, 'barra2'])->name('gabinete.imprimirBarra');
 
 Route::resource('categorias','App\Http\Controllers\CategoriaController');
 Route::resource('sectors','App\Http\Controllers\SectorController');
 Route::resource('sedes','App\Http\Controllers\SedeController');
 Route::resource('articulos','App\Http\Controllers\ArticuloController');
 Route::get('/setarticulos/{id}/editcart','App\Http\Controllers\SetArticuloController@editCart');
+Route::get('/setarticulos/{id}/{id_gabinete}/editcart','App\Http\Controllers\SetArticuloController@editCart');
+Route::get('/setarticulos/{id}/editcartgab','App\Http\Controllers\SetArticuloController@editCartGab');
 Route::post('/setarticulos/{id}/editcart','App\Http\Controllers\SetArticuloController@updateCart');
 Route::post('setarticulos/{id}','App\Http\Controllers\SetArticuloController@destroyArticuloSet')->name('setarticulos.destroyArticuloSet');
 Route::resource('setarticulos','App\Http\Controllers\SetArticuloController');
+// Route::get('setarticulos2','App\Http\Controllers\SetArticuloController@indexGab');
+
 Route::post('setarticulos','App\Http\Controllers\SetArticuloController@update');
 
 Route::post('setarticulos','App\Http\Controllers\SetArticuloController@store');
@@ -46,6 +52,15 @@ Route::post('/cart-add', 'App\Http\Controllers\CartController@add')->name('cart.
 Route::get('/cart-checkout', 'App\Http\Controllers\CartController@checkout')->name('cart.checkout');   
 Route::post('/cart-removeitem', 'App\Http\Controllers\CartController@removeitem')->name('cart.removeitem');      
 
+Route::resource('gabinetes','App\Http\Controllers\GabineteController');
+Route::get('/cart-checkout2', 'App\Http\Controllers\CartController@checkout2')->name('cart.checkout2'); 
+Route::post('gabinetes','App\Http\Controllers\GabineteController@store');
+Route::get('/gabinetes/{id}/editcart','App\Http\Controllers\GabineteController@editCart');
+Route::post('/gabinetes/{id}/editcart','App\Http\Controllers\GabineteController@updateCart');
+Route::post('/cart-add2', 'App\Http\Controllers\CartController@add2')->name('cart.add2'); 
+Route::post('/cart-add3', 'App\Http\Controllers\CartController@add3')->name('cart.add3'); 
+Route::post('gabinetes/{id}','App\Http\Controllers\GabineteController@destroyArticuloSet')->name('gabinetes.destroyArticuloSet');
+ Route::post('/cart-removeitem2', 'App\Http\Controllers\CartController@removeitem2')->name('cart.removeitem2'); 
 
 
 Route::resource('users','App\Http\Controllers\UserController');

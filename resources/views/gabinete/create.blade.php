@@ -3,105 +3,82 @@
 @section('title', 'DGHC')
 
 @section('content_header')
-    <h1>LISTADO DE ARTICULOS</h1>
+    <h1>LISTA DE ARTICULOS</h1><br><br>
+    <div class="col-sn-3">
+    @if(count(Cart::getContent()))
+         <a href="{{route('cart.checkout2')}}"> Ver Gabinete <span class="badge badge-danger">{{count(Cart::getContent())}}</span></a>
+         @endif
+    </div>
 @stop
 
 @section('content')
-@can('articulo.create')
-<a href="articulos/create" class="btn btn-primary mb-3">CREAR</a>
-@endcan
 
+
+<!--<form action="{{route('articulo.imprimirBarra')}}"method="GET" id="form1"> -->
 
 <table id="articulos" class="table table-striped mt-4">
     <thead>
         <tr>
             <th scope="col">ID</th>
-            
-            <th scope="col">Codigo</th>
-            <th scope="col">ID_SetArticulo</th>
-            <th scope="col">ID_Gabinete</th>
-            
-            
             <th scope="col">Categoria</th>
             
             <th scope="col">Marca/Modelo</th>
-           
             <th scope="col">Serial</th>
-            <th scope="col">Estante</th>
-           
             <th scope="col">Faja</th>
-           
+            <th scope="col">Precinto</th>
+            <th scope="col">Descripcion</th>
             <th scope="col">Estado</th>
             <th scope="col">Fec/Creacion</th>
             <th scope="col">Fec/Actualizacion</th>
-          
             <th scope="col">Acciones</th>
-           
 
         </tr>
         
     </thead>
-    
     <tbody>
-    
         @foreach ($articulos as $articulo)
         <tr>
-          
+
             <td>{{$articulo->id}}</td>
-         
-            <td>{{$articulo->codigo}}</td>
-            <td>{{$articulo->id_setarticulo}}</td>
-            <td>{{$articulo->id_gabinete}}</td>
+           
             <td>{{$articulo->categoria->nombre}}</td>
-          
             
             <td>{{$articulo->marca->nombre}}</td>
-           
             <td>{{$articulo->serial}}</td>
-            <td>{{$articulo->estante}}</td>
             <td>{{$articulo->faja}}</td>
-         
-          
+            <td>{{$articulo->precinto}}</td>
+            <td>{{$articulo->descripcion}}</td> 
             <td>{{$articulo->estado}}</td>
             <td>{{$articulo->created_at}}</td>
             <td>{{$articulo->updated_at}}</td>
 
-            
                 
 
-            <td>
-                {{$articulo->categoria->nombre}}  {{$articulo->marca->nombre}}<br>{{$articulo->descripcion}} <br>
-
-                      {!! DNS1D::getBarcodeSVG($articulo->codigo,'C128C') !!}
-                     <div class="checkbox">
-                  
-
-                     </div><br>
+            <td>{{$articulo->categoria->nombre}}  {{$articulo->marca->nombre}}<br>{{$articulo->descripcion}} 
+              {!! DNS1D::getBarcodeSVG($articulo->codigo,'C128C') !!} 
+               
+              <div >
+                <label>
+                 >&nbsp;>&nbsp;>&nbsp;>&nbsp;&nbsp;>&nbsp;>&nbsp;>&nbsp;
+                 
                @can('articulo.show')
                    <a href="{{route('articulos.show', $articulo->id)}}" class="btn btn-info"><i class="fas fa-info-circle"></i></a>
                    @endcan 
-                   @can('articulo.edit')
-                   <a href="/articulos/{{$articulo->id}}/edit" class="btn btn-primary" ><i class="far fa-edit"></i></a>
-                   @endcan
-
-                   
-                <form action="{{route ('articulos.destroy', $articulo->id)}}" class="formulario-eliminar" method="POST"> 
-                 
-                   @csrf 
-                  @method('DELETE') 
-                   @can('articulo.destroy')
-                  <!-- <a href="/articulos/{{$articulo->id}}/destroy" class="btn btn-danger"><i class="far fa-trash-alt"></i></a> -->
-                   <button type="submit" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
-                   @endcan
-
-
-                </form> 
+                
+              </label> 
+              </div>
+              <form action="{{route('cart.add3')}}" method="post">
+                @csrf
+                <input type="hidden" name="articulo_id" value="{{$articulo->id}}">
+                @if ($articulo->id_gabinete==null)
+                <input type="submit" name="btn" class="btn btn-success" value="ADD TO GABINETE">
+                @endif
+               
+              </form>
             </td> 
         </tr>
         @endforeach
-     <a href="{{route('articulo.impresion')}}" class="btn btn-success mb-3" > Seleccionar Etiquetas</a>
-      
-        <!-- </form> -->
+     
 
     </tbody>
 
@@ -173,7 +150,13 @@
                     }
                     
                 }
-              
+                /*{
+                    extend: "pdf",
+                    text: 'Exportar a PDF',
+                    className: 'btn btn-danger'
+                    btn-outline-success
+
+                }*/
 
                 ]
             }
@@ -222,3 +205,64 @@
 
 </script>
 @stop
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

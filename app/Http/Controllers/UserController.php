@@ -118,7 +118,7 @@ class UserController extends Controller
          //$users->password = $request->get('password');
          $password=$request->input('password');
         if($password)
-            $data['password'] = bcrypt($password);
+            $user->password = bcrypt($password);
 
         $user->roles()->sync($request->roles);
 

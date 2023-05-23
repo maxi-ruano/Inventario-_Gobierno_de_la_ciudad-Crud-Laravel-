@@ -3,7 +3,7 @@
 @section('title', 'DGHC')
 
 @section('content_header')
-    <h1>LISTA DE EQUIPOS DE TRABAJO</h1><br>
+    <h1>LISTA DE SET GABINETES</h1><br>
 @stop
 
 
@@ -28,9 +28,7 @@
         </thead>
 
         <tbody>
-
-            
-            {{-- @foreach ($setarticulos as $setarticulo)
+            @foreach ($setarticulos as $setarticulo)
                 <tr>
 
                     <td>{{ $setarticulo->id }}</td>
@@ -53,7 +51,7 @@
 
                         <a href="/setarticulos/{{ $setarticulo->id }}/edit" class="btn btn-primary"><i
                                 class="far fa-edit"></i></a>
-                                <a href="/setarticulos/{{ $setarticulo->id }}/{{$gabinete->id}}/editcart" class="btn btn-secondary"><i
+                                <a href="/setarticulos/{{ $setarticulo->id }}/editcartgab" class="btn btn-secondary"><i
                                     class="fa fa-shopping-cart"></i></a>
                         @can('articulo.show')
                             <a href="{{ route('setarticulos.show', $setarticulo->id) }}" class="btn btn-info"><i
@@ -78,67 +76,7 @@
 
                     </td>
                 </tr>
-            @endforeach --}}
-
-
-            @foreach ($setarticulos as $key => $setarticulo)
-    <tr>
-        <td>{{ $setarticulo->id }}</td>
-        <td>{{ $setarticulo->ip }}</td>
-        <td>{{ $setarticulo->codigo }}</td>
-        <td>{{ $setarticulo->sede }}</td>
-        <td>{{ $setarticulo->piso }}</td>
-        <td>{{ $setarticulo->sector }}</td>
-        <td>{{ $setarticulo->puesto }}</td>
-        <td>{{ $setarticulo->responsable }}</td>
-        <td>{{ $setarticulo->dni }}</td>
-        <td>{{ $setarticulo->estado }}</td>
-        <td>
-            <a href="/setarticulos/{{ $setarticulo->id }}/edit" class="btn btn-primary"><i class="far fa-edit"></i></a>
-            {{-- <a href="/setarticulos/{{ $setarticulo->id }}/{{ $gabinetes[$key]->id }}/editcart" class="btn btn-secondary"><i class="fa fa-shopping-cart"></i></a> --}}
-            
-            <a href="/setarticulos/{{ $setarticulo->id }}/{{ isset($gabinetes[$key]) ? $gabinetes[$key]->id : '' }}/editcart" class="btn btn-secondary"><i class="fa fa-shopping-cart"></i></a>
-            {{-- <a href="/setarticulos/{{ $setarticulo->id }}/{{ isset($gabinetes[$key]) ? $gabinetes[$key]->id . '/editcart' : 'editcart' }}" class="btn btn-secondary"><i class="fa fa-shopping-cart"></i></a> --}}
-
-            @can('articulo.show')
-            <a href="{{ route('setarticulos.show', $setarticulo->id) }}" class="btn btn-info"><i class="fas fa-info-circle"></i></a>
-            @endcan
-            @can('setarticulo.edit')
-            <a href="/setarticulos/{{$setarticulo->id}}/edit" class="btn btn-primary" ><i class="far fa-edit"></i></a>
-            @endcan
-
-            <form action="{{ route('setarticulos.destroy', $setarticulo->id) }}" class="formulario-eliminar" method="POST">
-                @csrf
-                @method('DELETE')
-                @can('articulo.destroy')
-                <button type="submit" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
-                @endcan
-            </form>
-        </td>
-    </tr>
-@endforeach
-
-        
-        
-        
-        
-        
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            @endforeach
             <a href="{{ route('setarticulo.impresion2') }}" class="btn btn-success mb-3"> Seleccionar Etiquetas</a>
 
 

@@ -35,7 +35,7 @@
     </div>
     <div class="mb-3">
         <label for="" class="form-label">Contraseña</label>
-        <input id="password" name="password" type="password" class="form-control" tabindex="3" value="{{$user->password}}">
+        <input id="password" name="password" type="password" class="form-control" tabindex="3" >
          @error('password')
         <div class="alert alert-danger">
         
@@ -50,7 +50,7 @@
             @foreach ($roles as $role)
             <div>
                 <label>
-                    <input type="checkbox" name="roles[]" value="{{$role->id}}">
+                    <input type="checkbox" name="roles[]" value="{{$role->id}}" {{$user->hasRole($role->id)?"checked" :""}}> 
                     {{$role->name}}
                 </label>
             </div>

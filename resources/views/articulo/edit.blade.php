@@ -34,7 +34,7 @@
         </select>
     </div>
 
-    {{-- <div class="mb-3">
+     <div class="mb-3">
         <label for="" class="form-label">Serial</label>
         <input id="serial" name="serial" type="text" class="form-control" tabindex="3" value="{{$articulo->serial}}">
         @error('serial')
@@ -44,7 +44,7 @@
         
         </div>
         @enderror
-    </div> --}}
+    </div> 
     <div class="mb-3">
         <label for="" class="form-label">Estante</label>
         <input id="estante" name="estante" type="text" class="form-control" tabindex="4" value="{{$articulo->estante}}">

@@ -47,6 +47,9 @@
                         <th>Codigo Set Articulo</th>
                         <td><center>{{ $setarticulo->codigo }}</center></td>
                       </tr>
+                      <th>ID Gabinete</th>
+                          <td><center>{{ $articulo->id_gabinete }}</center></td>
+                        </tr>
                         <tr>
                           <th>Categoria</th>
                           <td><center>{{ $articulo->categoria->nombre }}</center></td>

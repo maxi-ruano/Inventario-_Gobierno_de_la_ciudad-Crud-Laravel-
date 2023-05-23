@@ -4,11 +4,14 @@ namespace App\Http\Controllers;
 
 use Cart;
 use App\Models\Articulo;
+use App\Models\Gabinete;
 //  use Darryldecode\Cart\Cart;
 // use Darryldecode\Cart\Cart;
 // use Darryldecode\Cart\Cart;
 use App\Models\SetArticulo;
 use Illuminate\Http\Request;
+use App\Models\Categoria;
+use App\Models\Marca;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
  
 
@@ -18,8 +21,11 @@ class CartController extends Controller
   public function add(Request $request){
   
     $articulo= Articulo::find($request->articulo_id);
-    //  dd($articulo);
-    // dd($request->articulo_id);
+    
+   
+    // $gabinete= Gabinete::find($request->id_gabinete);
+    //  dd($gabinete);
+  // dd($articulo);
 
     \Cart::add(array(
 
@@ -27,7 +33,93 @@ class CartController extends Controller
        'name'=> $articulo->codigo,
      
 
-       'price' => $articulo->estante,
+      //  'price' => $articulo->estante,
+       'price' => 0,
+       'quantity' => 1,
+      //  'attributes' => array(),
+       'attributes' => array(
+        'tipo' => 'articulo'
+    ),
+   
+    ));
+    
+        
+    
+    return back()->with('success',"$articulo->nombre !se ha agregado con exito al carrito!");
+  }
+
+
+
+
+ public function add2(Request $request){
+  
+
+  
+
+    
+
+     $gabinete= Gabinete::find($request->gabinete_id);
+
+     $articulos = $gabinete->articulos;
+
+    // dd($articulos);
+  
+
+    \Cart::add(array(
+
+       'id'=>$gabinete->id,
+       'name'=> $gabinete->codigo,
+     
+
+       'price' => 0,
+       'quantity' => 1,
+      //  'attributes' => array(),
+       'attributes' => array(
+        'tipo' => 'gabinete'
+    ),
+   
+    ));
+    
+        
+    
+    return back()->with('success',"$gabinete->nombre !se ha agregado con exito al carrito!");
+
+  //   \Cart::add(array(
+  //     'id'=>$gabinete->id,
+  //     'name'=> $gabinete->codigo,
+  //     'price' => 0,
+  //     'quantity' => 1,
+  //     'attributes' => array(),
+  //  ));
+   
+  //  return view('gabinete.checkout', compact('articulos', 'gabinete'))->with('success',"$gabinete->nombre !se ha agregado con exito al carrito!");
+
+
+
+
+
+
+
+  }
+
+
+  public function add3(Request $request){
+  
+    $articulo= Articulo::find($request->articulo_id);
+    
+   
+    // $gabinete= Gabinete::find($request->id_gabinete);
+    //  dd($gabinete);
+  // dd($articulo);
+
+    \Cart::add(array(
+
+       'id'=>$articulo->id,
+       'name'=> $articulo->codigo,
+     
+
+      //  'price' => $articulo->estante,
+       'price' => 0,
        'quantity' => 1,
        'attributes' => array(),
    
@@ -41,6 +133,16 @@ class CartController extends Controller
 
 public function checkout() {
     return view ('setarticulo.checkout');
+}
+
+
+
+public function checkout2() {
+  $categorias = Categoria::orderBy('nombre')->get();
+  $marcas = Marca::orderBy('nombre')->get();
+  return view('gabinete.checkout', compact('categorias', 'marcas'));
+
+  // return view ('gabinete.checkout');
 }
 
 public function store(Request $request){
@@ -90,6 +192,17 @@ public function removeitem(Request $request){
    return back()->with('success',"articulo eliminado de su carrito con exito");
 
 }
+
+public function removeitem2(Request $request){
+   
+  \Cart::remove([
+      'id'=> $request->id,
+      
+  ]);
+  return back()->with('success',"articulo eliminado de su carrito con exito");
+
+}
+
 
 public function clear(){
     Cart::clear();

@@ -3,114 +3,79 @@
 @section('title', 'DGHC')
 
 @section('content_header')
-    <h1>LISTADO DE ARTICULOS</h1>
+    <h1>IMPRESION DE CODIGO DE GABINETE</h1>
 @stop
 
 @section('content')
-@can('articulo.create')
-<a href="articulos/create" class="btn btn-primary mb-3">CREAR</a>
-@endcan
 
-
-<table id="articulos" class="table table-striped mt-4">
+<form action="{{ route('gabinete.imprimirBarra')}}" method="GET" id="form1">
+<table id="gabinetes" class="table table-striped mt-4">
     <thead>
         <tr>
             <th scope="col">ID</th>
             
-            <th scope="col">Codigo</th>
-            <th scope="col">ID_SetArticulo</th>
-            <th scope="col">ID_Gabinete</th>
+          <!--  <th scope="col">Categoria</th>
             
-            
-            <th scope="col">Categoria</th>
-            
-            <th scope="col">Marca/Modelo</th>
+            <th scope="col">Marca/Modelo</th> -->
+         
            
-            <th scope="col">Serial</th>
-            <th scope="col">Estante</th>
-           
-            <th scope="col">Faja</th>
            
             <th scope="col">Estado</th>
-            <th scope="col">Fec/Creacion</th>
-            <th scope="col">Fec/Actualizacion</th>
-          
-            <th scope="col">Acciones</th>
-           
+          <!--  <th scope="col">Fec/Creacion</th>
+            <th scope="col">Fec/Actualizacion</th> -->
+            <th scope="col">Codigo de Barras</th>
+          <!--  <th scope="col">Acciones</th> -->
 
         </tr>
         
     </thead>
-    
     <tbody>
-    
-        @foreach ($articulos as $articulo)
+        @foreach ($gabinetes as $gabinete)
         <tr>
+
+            <td>{{$gabinete->id}}</td>
+           
+       
+            
+            
           
-            <td>{{$articulo->id}}</td>
-         
-            <td>{{$articulo->codigo}}</td>
-            <td>{{$articulo->id_setarticulo}}</td>
-            <td>{{$articulo->id_gabinete}}</td>
-            <td>{{$articulo->categoria->nombre}}</td>
           
             
-            <td>{{$articulo->marca->nombre}}</td>
-           
-            <td>{{$articulo->serial}}</td>
-            <td>{{$articulo->estante}}</td>
-            <td>{{$articulo->faja}}</td>
+            <td>{{$gabinete->estado}}</td> 
          
           
-            <td>{{$articulo->estado}}</td>
-            <td>{{$articulo->created_at}}</td>
-            <td>{{$articulo->updated_at}}</td>
+            {{-- <td><center>{{$setarticulo->sede}}  {{$setarticulo->sector}}<br>{{$setarticulo->puesto}} <br> --}}
+                <td>
+
+                      {!! DNS1D::getBarcodeSVG($gabinete->codigo,'C128C') !!}
+                     <div class="checkbox">
+                    <label>
+                        <input type="checkbox" name="set_articulos[]" value ="{{$gabinete}}">
+
+
+                    </label>
+                     
+                      
+
+                     </div>
+                     
+            </td>
 
             
                 
 
-            <td>
-                {{$articulo->categoria->nombre}}  {{$articulo->marca->nombre}}<br>{{$articulo->descripcion}} <br>
-
-                      {!! DNS1D::getBarcodeSVG($articulo->codigo,'C128C') !!}
-                     <div class="checkbox">
-                  
-
-                     </div><br>
-               @can('articulo.show')
-                   <a href="{{route('articulos.show', $articulo->id)}}" class="btn btn-info"><i class="fas fa-info-circle"></i></a>
-                   @endcan 
-                   @can('articulo.edit')
-                   <a href="/articulos/{{$articulo->id}}/edit" class="btn btn-primary" ><i class="far fa-edit"></i></a>
-                   @endcan
-
-                   
-                <form action="{{route ('articulos.destroy', $articulo->id)}}" class="formulario-eliminar" method="POST"> 
-                 
-                   @csrf 
-                  @method('DELETE') 
-                   @can('articulo.destroy')
-                  <!-- <a href="/articulos/{{$articulo->id}}/destroy" class="btn btn-danger"><i class="far fa-trash-alt"></i></a> -->
-                   <button type="submit" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
-                   @endcan
-
-
-                </form> 
-            </td> 
+            
         </tr>
         @endforeach
-     <a href="{{route('articulo.impresion')}}" class="btn btn-success mb-3" > Seleccionar Etiquetas</a>
-      
-        <!-- </form> -->
-
+        <input  type="submit" form="form1" value="Imprimir Seleccion" class="btn btn-success mb-3">
     </tbody>
 
 </table>
-
-
+</form>
+<a href="{{ route('setarticulos.index') }}" class="btn btn-sm btn-success mr-3"> Volver </a>
 @stop
 
-@section('css')
+ @section('css')
     <link rel="stylesheet" href="{{asset('css/admin_custom.css')}}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap5.min.css">
@@ -153,7 +118,7 @@
 
 <script>
     $(document).ready(function() {
-    $('#articulos').DataTable({
+    $('#setarticulos').DataTable({
         responsive: true,
         "lengthMenu": [[15, 50, -1], [15, 50, "All"]],
             dom: "lBfrtip",
@@ -173,7 +138,13 @@
                     }
                     
                 }
-              
+                /*{
+                    extend: "pdf",
+                    text: 'Exportar a PDF',
+                    className: 'btn btn-danger'
+                    btn-outline-success
+
+                }*/
 
                 ]
             }
@@ -221,4 +192,4 @@
      });
 
 </script>
-@stop
+@stop --}}

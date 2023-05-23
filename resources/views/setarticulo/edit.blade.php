@@ -57,6 +57,17 @@
         @enderror
     </div>
     <div class="mb-3">
+        <label for="" class="form-label">IP</label>
+        <input id="ip" name="ip" type="text" class="form-control" tabindex="1" value="{{$setarticulos->ip}}">
+        @error('nombre')
+        <div class="alert alert-danger">
+        
+        <small>*{{$message}}</small>
+        
+        </div>
+        @enderror
+    </div>
+    <div class="mb-3">
         <label for="" class="form-label">Responsable</label>
         <input id="responsable" name="responsable" type="text" class="form-control" tabindex="1" value="{{$setarticulos->responsable}}">
         @error('nombre')
@@ -88,7 +99,7 @@
     <small>*{{$message}}</small>
     
     </div>
-    @enderror
+    @enderror 
 </div>
     <div class="mb-3">
         <label for="" class="form-label">Estado</label>

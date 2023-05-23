@@ -31,11 +31,7 @@ class CreateSetArticulosTable extends Migration
             
             $table->timestamps();
 
-            //Clave foranea
-            //$table->foreign('categoria_id')->references('id')->on('categorias');
-            //   $table->foreign('sector_id')->references('id')->on('sectors');
-            //   $table->foreign('sede_id')->references('id')->on('sedes');   
-            //$table->foreign('marca_id')->references('id')->on('marcas');
+            
         });
     }
 

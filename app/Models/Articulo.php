@@ -14,21 +14,14 @@ class Articulo extends Model
      
 
 
-    protected $fillable = ['idcategoria','nombre','modelo','serial','descripcion','id_setarticulo','estado'];
+    protected $fillable = ['idcategoria','nombre','modelo','serial','descripcion','id_setarticulo','estado','id_gabinete'];
 
-   /* public $incrementing = false;*/
+  
 
     public function categoria(){
         return $this -> belongsTo('App\Models\Categoria'); 
     }
-   /* public function sector(){
-        return $this -> belongsTo('App\Models\Sector'); 
-    }
-
-    public function sede(){
-        return $this -> belongsTo('App\Models\Sede'); 
-    }*/
-
+  
     public function marca(){
         return $this -> belongsTo('App\Models\Marca'); 
     }
@@ -44,5 +37,11 @@ class Articulo extends Model
    public function set_articulos(){
         return $this -> belongsTo('App\Models\SetArticulo'); 
     } 
+
+    
+     public function gabinete()
+     {
+         return $this->belongsTo(Gabinete::class);
+     }
 
 }

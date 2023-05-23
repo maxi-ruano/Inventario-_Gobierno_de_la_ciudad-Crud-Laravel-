@@ -7,7 +7,7 @@
 @stop
 
 @section('content')
-    <form action="/articulos"  method="POST">
+    <form action="/articulos"  method="POST" onkeydown="return event.key != 'Enter';">
     @csrf
           
 
@@ -61,7 +61,7 @@
         <label for="" class="form-label">Estante</label>
         <input id="estante" name="estante" type="text" class="form-control" tabindex="4" >
         
-    </div>
+    </div> 
 
     <div class="mb-3">
         <label for="" class="form-label">Faja</label>

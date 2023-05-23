@@ -17,4 +17,24 @@ class SetArticulo extends Model
    public function articulos(){
        return $this -> hasMany('App\Models\Articulo','id_setarticulo');
 }
+
+public function gabinetes(){
+    return $this -> hasMany('App\Models\Gabinete','id_setarticulo');
+}
+
+
+
+// public function gabinete()
+// {
+//     return $this->hasOne(Gabinete::class, 'id_setarticulo');
+// }
+
+
+public function gabinete()
+    {
+        return $this->belongsTo(Gabinete::class);
+    }
+
+
+
 }

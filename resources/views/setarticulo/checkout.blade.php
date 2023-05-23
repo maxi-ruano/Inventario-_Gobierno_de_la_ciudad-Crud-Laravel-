@@ -11,7 +11,7 @@
      <thead>
          <th>ID</th>
          <th>CODIGO</th>
-         <th>ESTANTE</th>
+         {{-- <th>ESTANTE</th> --}}
      </thead>
      <tbody>
      @foreach (Cart::getContent() as $articulo)
@@ -19,7 +19,7 @@
      <tr>
          <td>{{$articulo->id}}</td>
          <td>{{$articulo->name}}</td>
-         <td>{{$articulo->price}}</td>
+         {{-- <td>{{$articulo->price}}</td> --}}
          <td>
           <form action="{{route('cart.removeitem')}}" method="post">
         @csrf
@@ -87,7 +87,12 @@
                 <input id="responsable" name="responsable" type="text" class="form-control" tabindex="3">
             </div>
            
-           
+            <div class="mb-3">
+                <label for="" class="form-label">IP</label>
+                <input id="ip" name="ip" type="text" class="form-control" tabindex="3">
+            </div>
+
+
             <div class="mb-3">
                 <label for="" class="form-label">DNI</label>
                 <input id="dni" name="dni" type="number" class="form-control" tabindex="3">

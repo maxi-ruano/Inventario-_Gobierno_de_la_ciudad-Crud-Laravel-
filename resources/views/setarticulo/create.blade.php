@@ -3,7 +3,7 @@
 @section('title', 'DGHC')
 
 @section('content_header')
-    <h1>LISTA DE ARTICULOS</h1><br><br>
+    <h1>LISTA DE ARTICULOS y CPU</h1><br><br>
     {{-- <a href="{{route('setarticulos.cart')}}" class="btn btn-primary">CREAR SET ARTICULO</a><br><br> --}}
     <div class="col-sn-3">
     @if(count(Cart::getContent()))
@@ -17,31 +17,89 @@
 {{-- <a href="setarticulos/create" class="btn btn-primary">CREAR</a><br><br> --}}
 
 <!--<form action="{{route('articulo.imprimirBarra')}}"method="GET" id="form1"> -->
-
+<div>
+   
+</div>
 <table id="articulos" class="table table-striped mt-4">
     <thead>
+      
         <tr>
+            
+            <th scope="col">ID</th>
+             <th scope="col">Codigo</th>
+            <th scope="col">Estado</th>
+             <th scope="col">Fec/Creacion</th>
+            <th scope="col">Fec/Actualizacion</th>
+            <th scope="col">Acciones</th>  
+
+        </tr>
+        
+    </thead>
+
+    <tbody>
+
+     @foreach ($gabinetes as $gabinete)
+     <tr>
+     <td>{{$gabinete->id}}</td>
+     <td>{{$gabinete->codigo}}</td>
+     <td>{{$gabinete->estado}}</td>
+     <td>{{$gabinete->created_at}}</td>
+     <td>{{$gabinete->updated_at}}</td>
+     
+     <td>
+        {!! DNS1D::getBarcodeSVG($gabinete->codigo,'C128C') !!} 
+        
+        <div >
+            <label>
+             >&nbsp;>&nbsp;>&nbsp;>&nbsp;&nbsp;>&nbsp;>&nbsp;>&nbsp;
+             
+           @can('articulo.show')
+               <a href="{{route('articulos.show', $gabinete->id)}}" class="btn btn-info"><i class="fas fa-info-circle"></i></a>
+               @endcan 
+            
+          </label> 
+          </div>
+        </div>
+        <form action="{{route('cart.add2')}}" method="post">
+          @csrf
+          <input type="hidden" name="gabinete_id" value="{{$gabinete->id}}">
+          @if ($gabinete->id_setarticulo==null && $gabinete->estado == 'Deposito')
+          <input type="submit" name="btn" class="btn btn-success" value="ADD CPU ">
+          @endif
+         
+        </form>
+     </tr>
+
+
+
+
+     
+     @endforeach
+
+     
+     <thead>
+ <tr>
             <th scope="col">ID</th>
             
             <th scope="col">Categoria</th>
             
             <th scope="col">Marca/Modelo</th>
             <th scope="col">Serial</th>
-            <th scope="col">Estante</th>
+           
             <th scope="col">Faja</th>
             <th scope="col">Precinto</th>
             <th scope="col">Descripcion</th>
             <th scope="col">Estado</th>
             <th scope="col">Fec/Creacion</th>
             <th scope="col">Fec/Actualizacion</th>
-          <!--  <th scope="col">Codigo de Barras</th> -->
+      
             <th scope="col">Acciones</th>
 
-        </tr>
-        
-    </thead>
-    <tbody>
-        @foreach ($articulos as $articulo)
+        </tr> 
+     </thead>
+   
+
+         @foreach ($articulos as $articulo)
         <tr>
 
             <td>{{$articulo->id}}</td>
@@ -50,7 +108,7 @@
             
             <td>{{$articulo->marca->nombre}}</td>
             <td>{{$articulo->serial}}</td>
-            <td>{{$articulo->estante}}</td>
+           
             <td>{{$articulo->faja}}</td>
             <td>{{$articulo->precinto}}</td>
             <td>{{$articulo->descripcion}}</td> 
@@ -76,20 +134,20 @@
               <form action="{{route('cart.add')}}" method="post">
                 @csrf
                 <input type="hidden" name="articulo_id" value="{{$articulo->id}}">
-                @if ($articulo->id_setarticulo==null)
-                <input type="submit" name="btn" class="btn btn-success" value="ADD TO SET ARTICULO">
+                @if ($articulo->id_setarticulo==null && $articulo->id_gabinete == null )
+                <input type="submit" name="btn" class="btn btn-success" value="ADD ARTICULOS ">
                 @endif
                
               </form>
             </td> 
         </tr>
-        @endforeach
-     {{-- <a href="{{route('articulo.impresion')}}" class="btn btn-success mb-3" > Seleccionar Etiquetas</a> --}}
-      
-        <!-- </form> -->
-
+        @endforeach 
+   
     </tbody>
 
+
+
+    
 </table>
 
 

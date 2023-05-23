@@ -8,6 +8,7 @@ use App\Http\Requests\ArticuloEditRequest;
 use App\Models\Articulo;
 use App\Models\Categoria;
 use App\Models\Marca;
+use App\Models\Gabinete;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 use App\Http\Controllers\BarcodeGeneratorController;
 use App\Models\SetArticulo;
@@ -93,10 +94,10 @@ public function generateBarcode(Request $request){
         //   ]);
 
         $id = IdGenerator::generate(['table' => 'articulos', 'field' => 'codigo', 'length' => 8, 'prefix' => date('1')]);
-
+       
         $articulos = new Articulo();
-
-        $articulos->codigo = $id;
+        
+         $articulos->codigo = $id;
         $articulos->categoria_id = $request->get('categoria_id');
         $articulos->marca_id = $request->get('marca_id');
         $articulos->serial = $request->get('serial');
@@ -118,13 +119,38 @@ public function generateBarcode(Request $request){
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Articulo $articulo)
+    // public function show(Articulo $articulo)
 
-    {
-        $setarticulo=SetArticulo::find($articulo->id_setarticulo);
-        //   dd($setarticulo);
-        return view('articulo.show', compact('articulo' ,'setarticulo'));
+    // {
+    //     $setarticulo=SetArticulo::find($articulo->id_setarticulo);
+    //     $gabinete=Gabinete::find($articulo->id_gabinete);
+
+    //     return view('articulo.show', compact('articulo' ,'setarticulo','gabinete'));
+    // }
+    public function show(Articulo $articulo)
+{
+    $gabinete = Gabinete::find($articulo->id_gabinete);
+    $setarticulo = null;
+
+    if ($gabinete) {
+        $setarticulo = SetArticulo::find($gabinete->id_setarticulo);
     }
+
+    return view('articulo.show', compact('articulo', 'gabinete', 'setarticulo'));
+}
+
+
+    // public function show(Articulo $articulo)
+    // {
+    //     $setarticulo = $articulo->setarticulo; // Obtener el SetArticulo al que pertenece el Articulo
+    //     $gabinete = $articulo->gabinete; // Obtener el Gabinete en el que se encuentra el Articulo
+
+       
+    //     return view('articulo.show', compact('articulo', 'setarticulo', 'gabinete'));
+    // }
+    
+
+
 
     public function barra(Request $request)
     {
@@ -175,27 +201,20 @@ public function generateBarcode(Request $request){
      */
     public function update(ArticuloEditRequest $request, $id)
     {
-        //  $request->validate([
-
-
-        //  'faja'=>'unique:articulos','faja',
-
-        //  'precinto'=>'unique:articulos','precinto',
-
-
-        //   ]);
+      
         $articulo = Articulo::find($id);
-
-
+        // dd($articulo);
+        
 
         $articulo->categoria_id = $request->get('categoria_id');
         $articulo->marca_id = $request->get('marca_id');
-        // $articulo->serial = $request->get('serial');
+        $articulo->serial = $request->get('serial');
         $articulo->estante = $request->get('estante');
         $articulo->estado = $request->get('estado');
         if($articulo->isDirty('estado')){
-            $articulo->update(['id_setarticulo' => null]);
+            $articulo->update(['id_setarticulo' => null ,'id_gabinete' => null]);
             $articulo->save();
+            
         }else {
             $articulo->save();
         

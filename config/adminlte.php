@@ -343,19 +343,19 @@ return [
                    ],
                 ],*/
                 [
-                    'text' => 'Marca y Modelo',
+                    'text' => 'Marca ',
                     'icon' => 'fas fa-align-justify',
                     'url'  => '#',
                     'submenu' => [
                         [
-                            'text' => 'Crear Marca y Modelo',
+                            'text' => 'Crear Marca ',
                             'can' => 'marca.create',
                             'icon' => 'fas fa-caret-right',
                             'icon_color'=> 'primary',
                             'url'  => 'marcas/create',
                         ],
                        [
-                            'text' => 'Listado de Marcas y Modelos',
+                            'text' => 'Listado de Marcas ',
                             'icon' => 'fas fa-caret-right',
                             'icon_color'=> 'danger',
                             'url'  => 'marcas',
@@ -363,23 +363,45 @@ return [
                     ],
                 ],
                 [
-                    'text' => 'Set Articulo',
+                    'text' => 'CPU',
                     'icon' => 'fas fa-align-justify',
                     'url'  => '#',
                     'submenu' => [
                         [
-                            'text' => 'Crear Set Articulo',
+                            'text' => 'Crear CPU',
+                            'can' => 'marca.create',
+                            'icon' => 'fas fa-caret-right',
+                            'icon_color'=> 'primary',
+                            'url'  => 'gabinetes/create',
+                        ],
+                       [
+                            'text' => 'Listado de CPU',
+                            'icon' => 'fas fa-caret-right',
+                            'icon_color'=> 'danger',
+                            'url'  => 'gabinetes',
+                       ],
+                      
+                    ],
+                ],
+                [
+                    'text' => 'Set ',
+                    'icon' => 'fas fa-align-justify',
+                    'url'  => '#',
+                    'submenu' => [
+                        [
+                            'text' => 'Crear Equipo de Trabajo ',
                             'can' => 'marca.create',
                             'icon' => 'fas fa-caret-right',
                             'icon_color'=> 'primary',
                             'url'  => 'setarticulos/create',
                         ],
                        [
-                            'text' => 'Listado de Set Articulos',
+                            'text' => 'Lista de Equipos de Trabajo',
                             'icon' => 'fas fa-caret-right',
                             'icon_color'=> 'danger',
                             'url'  => 'setarticulos',
                        ],
+                
                     ],
                 ],
 
